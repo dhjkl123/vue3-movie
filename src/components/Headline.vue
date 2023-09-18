@@ -12,7 +12,6 @@
 </template>
 
 <style lang="scss" scoped>
-@import "../scss/main.scss";
 
 h1 {
     line-height: 1;
