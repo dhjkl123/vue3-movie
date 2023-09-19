@@ -1,12 +1,8 @@
 <template>
   <div class="about">
     <div class="photo">
-      <Loader
-        v-if="imageLoading"
-        absolute />
-      <img
-        :src="image"
-        :alt="name" />
+      <Loader v-if="imageLoading" absolute />
+      <img :src="image" :alt="name" />
     </div>
     <div class="name">
       {{ name }}
@@ -18,17 +14,15 @@
 </template>
 
 <script>
-import Loader from '../components/Loader.vue'
-import {mapState} from  'vuex'
-
-
+import Loader from "../components/Loader.vue";
+import { mapState } from "vuex";
 
 export default {
-  components:{
-    Loader
+  components: {
+    Loader,
   },
   computed: {
-    ...mapState('about', ['image','name','email','blog','phone'])
+    ...mapState("about", ["image", "name", "email", "blog", "phone"]),
     // image(){
     //   return this.$store.state.about.image
     // },
@@ -45,33 +39,32 @@ export default {
     //   return this.$store.state.about.phone
     // }
   },
-  data(){
+  data() {
     return {
-      imageLoading : true
-    }
+      imageLoading: true,
+    };
   },
-  mounted(){
-    this.init()
+  mounted() {
+    this.init();
   },
-  methods : {
+  methods: {
     async init() {
-      await this.$loadImage(this.image)
-      this.imageLoading = false
-    }
-  }
-}
+      await this.$loadImage(this.image);
+      this.imageLoading = false;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
-.about{
+.about {
   text-align: center;
-  .photo{
-    width:250px;
+  .photo {
+    width: 250px;
     height: 250px;
-    margin:40px auto 20px;
+    margin: 40px auto 20px;
     padding: 30px;
-    border : 10px solid $gray-300;
+    border: 10px solid $gray-300;
     border-radius: 50%;
     box-sizing: border-box;
     background-color: $gray-200;
@@ -79,11 +72,10 @@ export default {
     img {
       width: 100%;
     }
-
   }
 }
-.name{
-  font-size : 40px;
+.name {
+  font-size: 40px;
   font-family: "Oswald", sans-serif;
   margin-bottom: 20px;
 }
