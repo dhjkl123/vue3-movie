@@ -1,95 +1,90 @@
 <template>
   <header>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
     <Logo />
     <div class="nav nav-pills">
-      <div
-        v-for="nav in navigations"
-        :key="nav.name"
-        class="nav-item">
+      <div v-for="nav in navigations" :key="nav.name" class="nav-item">
         <RouterLink
           :to="nav.href"
           active-class="active"
-          :class="{active: isMatch(nav.path)}"
-          class="nav-link">
+          :class="{ active: isMatch(nav.path) }"
+          class="nav-link"
+        >
           {{ nav.name }}
         </RouterLink>
       </div>
     </div>
-    <div
-      class="user"
-      @click="toAbout">
-      <img
-        :src="image"
-        :alt="name" />
+    <div class="user" @click="toAbout">
+      <img :src="image" :alt="name" />
     </div>
   </header>
 </template>
 
 <script>
-
-import Logo from "./Logo.vue"
-import {mapState} from 'vuex'
+import Logo from "./Logo.vue";
+import { mapState } from "vuex";
 
 export default {
-  components:{
-    Logo
+  components: {
+    Logo,
   },
-  data(){
-      return {
-          navigations:[
-              {
-                  name:'Search',
-                  href:'/'
-              },
-              {
-                  name:'Movie',
-                  href:'/movie/tt4520988',
-                  path: /^\/movie/
-              },
-              {
-                  name:'About',
-                  href:'/about'
-              },
-          ]
-      }
+  data() {
+    return {
+      navigations: [
+        {
+          name: "Search",
+          href: "/",
+        },
+        {
+          name: "Movie",
+          href: "/movie/tt4520988",
+          path: /^\/movie/,
+        },
+        {
+          name: "About",
+          href: "/about",
+        },
+      ],
+    };
   },
   methods: {
-    isMatch(path){
-      if(!path) return false
-      console.log(this.$route)
-      return path.test(this.$route.fullPath)
+    isMatch(path) {
+      if (!path) return false;
+      console.log(this.$route);
+      return path.test(this.$route.fullPath);
     },
-    toAbout(){
-      this.$router.push('/about')
-    }
+    toAbout() {
+      this.$router.push("/about");
+    },
   },
   computed: {
-    ...mapState('about',['image','name'])
+    ...mapState("about", ["image", "name"]),
     // image(){
     //   return this.$store.state.about.image
     // },
     // name(){
     //   return this.$store.state.about.name
     // },
-
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
-@import '../scss/main.scss';
+@import "../scss/main.scss";
 
 header {
   height: 70px;
-  padding : 0 40px;
+  padding: 0 40px;
   display: flex;
   align-items: center;
   position: relative;
-  .logo{
+  .logo {
     margin-right: 40px;
   }
-  .user{
+  .user {
     width: 40px;
     height: 40px;
     padding: 6px;
@@ -102,20 +97,18 @@ header {
     bottom: 0;
     right: 40px;
     margin: auto;
-    &:hover{
+    &:hover {
       background-color: darken($gray-200, 10%);
     }
     img {
       width: 100%;
     }
 
-    @include media-breakpoint-down(sm){
-      .nav{
+    @include media-breakpoint-down(sm) {
+      .nav {
         display: none;
-
       }
     }
-  
   }
 }
 </style>
